@@ -7,24 +7,25 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #08080c;
-  --surface: #111118;
-  --surface-2: #18181f;
-  --surface-3: #1f1f28;
-  --border: #2a2a38;
-  --border-light: #33334a;
-  --text: #e4e4ef;
-  --text-dim: #7a7a95;
-  --text-muted: #55556a;
-  --accent: #00d898;
-  --accent-dim: rgba(0,216,152,0.1);
-  --accent-glow: rgba(0,216,152,0.2);
-  --phase1: #00d898;
-  --phase2: #5b8def;
-  --phase3: #c084fc;
-  --red: #ff6b6b;
-  --orange: #ffa94d;
-  --yellow: #ffd43b;
+  --bg: #f7f7fb;
+  --surface: #ffffff;
+  --surface-2: #f0f0f6;
+  --surface-3: #e8e8f0;
+  --border: #d8d8e4;
+  --border-light: #c8c8d8;
+  --text: #1a1a2e;
+  --text-dim: #5a5a78;
+  --text-muted: #8888a0;
+  --accent: #0a8a62;
+  --accent-bright: #00b87a;
+  --accent-dim: rgba(10,138,98,0.08);
+  --accent-glow: rgba(10,138,98,0.12);
+  --phase1: #0a8a62;
+  --phase2: #3b6bdf;
+  --phase3: #8b5cf6;
+  --red: #dc3545;
+  --orange: #e67e22;
+  --yellow: #f59e0b;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -34,12 +35,11 @@ body {
   line-height: 1.6;
   min-height: 100vh;
 }
-::selection { background: var(--accent); color: var(--bg); }
+::selection { background: var(--accent-bright); color: #fff; }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-/* Layout */
 .container { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
 
 /* Header */
@@ -53,7 +53,7 @@ body {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.6;
 }
 .header .logo {
   font-family: 'Space Mono', monospace;
@@ -81,7 +81,7 @@ body {
   background: var(--accent-dim);
   padding: 6px 18px;
   border-radius: 20px;
-  border: 1px solid rgba(0,216,152,0.15);
+  border: 1px solid rgba(10,138,98,0.15);
 }
 
 /* Progress bar */
@@ -98,6 +98,7 @@ body {
   top: 12px;
   z-index: 100;
   backdrop-filter: blur(20px);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.04);
 }
 .global-progress .bar-wrap {
   flex: 1;
@@ -133,9 +134,6 @@ body {
   font-size: 26px;
   font-weight: 700;
   margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 .section-desc {
   font-size: 15px;
@@ -161,7 +159,7 @@ body {
 .about-card p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
 .key-diff {
   background: var(--accent-dim);
-  border: 1px solid rgba(0,216,152,0.15);
+  border: 1px solid rgba(10,138,98,0.15);
   border-radius: 12px;
   padding: 18px 24px;
   font-size: 14px;
@@ -200,10 +198,10 @@ body {
   display: inline-block;
   margin-bottom: 10px;
 }
-.tier-label.t1 { color: var(--phase1); background: rgba(0,216,152,0.1); }
-.tier-label.t2 { color: var(--phase2); background: rgba(91,141,239,0.1); }
-.tier-label.t3 { color: var(--phase3); background: rgba(192,132,252,0.1); }
-.tier-label.anti { color: var(--red); background: rgba(255,107,107,0.1); }
+.tier-label.t1 { color: var(--phase1); background: rgba(10,138,98,0.08); }
+.tier-label.t2 { color: var(--phase2); background: rgba(59,107,223,0.08); }
+.tier-label.t3 { color: var(--phase3); background: rgba(139,92,246,0.08); }
+.tier-label.anti { color: var(--red); background: rgba(220,53,69,0.08); }
 .tier-items { font-size: 14px; color: var(--text-dim); line-height: 1.8; padding-left: 4px; }
 .tier-items strong { color: var(--text); font-weight: 600; }
 .anti-items { font-size: 13px; color: var(--text-muted); line-height: 1.8; }
@@ -244,6 +242,7 @@ body {
   border-radius: 20px;
   overflow: hidden;
   background: var(--surface);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.03);
 }
 .phase-header {
   padding: 28px 32px 20px;
@@ -270,11 +269,11 @@ body {
   font-weight: 700;
 }
 .phase-header .phase-count { font-size: 12px; color: var(--text-dim); }
-.phase.p1 .phase-badge { color: var(--phase1); background: rgba(0,216,152,0.1); }
+.phase.p1 .phase-badge { color: var(--phase1); background: rgba(10,138,98,0.08); }
 .phase.p1 .phase-pct { color: var(--phase1); }
-.phase.p2 .phase-badge { color: var(--phase2); background: rgba(91,141,239,0.1); }
+.phase.p2 .phase-badge { color: var(--phase2); background: rgba(59,107,223,0.08); }
 .phase.p2 .phase-pct { color: var(--phase2); }
-.phase.p3 .phase-badge { color: var(--phase3); background: rgba(192,132,252,0.1); }
+.phase.p3 .phase-badge { color: var(--phase3); background: rgba(139,92,246,0.08); }
 .phase.p3 .phase-pct { color: var(--phase3); }
 .phase-body { padding: 0 32px 28px; }
 .phase-desc { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; }
@@ -305,6 +304,7 @@ body {
   font-weight: 700;
   min-width: 50px;
   text-align: right;
+  color: var(--text-dim);
 }
 .week-body { padding: 4px 12px 12px; }
 
@@ -318,7 +318,7 @@ body {
   transition: background 0.15s;
 }
 .task:hover { background: var(--surface-3); }
-.task.done { opacity: 0.5; }
+.task.done { opacity: 0.45; }
 .task.done .task-text { text-decoration: line-through; color: var(--text-muted); }
 .task input[type="checkbox"] {
   appearance: none;
@@ -343,7 +343,7 @@ body {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--bg);
+  color: #fff;
   font-size: 13px;
   font-weight: 700;
 }
@@ -354,7 +354,7 @@ body {
   color: var(--text-muted);
   white-space: nowrap;
   padding: 3px 8px;
-  background: var(--surface);
+  background: var(--surface-3);
   border-radius: 6px;
   margin-top: 2px;
 }
@@ -368,14 +368,14 @@ body {
   font-weight: 600;
   margin-top: 8px;
 }
-.phase.p1 .milestone { border-color: rgba(0,216,152,0.2); color: var(--phase1); background: rgba(0,216,152,0.05); }
-.phase.p2 .milestone { border-color: rgba(91,141,239,0.2); color: var(--phase2); background: rgba(91,141,239,0.05); }
-.phase.p3 .milestone { border-color: rgba(192,132,252,0.2); color: var(--phase3); background: rgba(192,132,252,0.05); }
+.phase.p1 .milestone { border-color: rgba(10,138,98,0.2); color: var(--phase1); background: rgba(10,138,98,0.04); }
+.phase.p2 .milestone { border-color: rgba(59,107,223,0.2); color: var(--phase2); background: rgba(59,107,223,0.04); }
+.phase.p3 .milestone { border-color: rgba(139,92,246,0.2); color: var(--phase3); background: rgba(139,92,246,0.04); }
 
 /* Red flags */
 .flag-card {
   background: var(--surface);
-  border: 1px solid rgba(255,107,107,0.15);
+  border: 1px solid rgba(220,53,69,0.15);
   border-radius: 12px;
   padding: 16px 20px;
   margin-bottom: 10px;
@@ -419,7 +419,6 @@ body {
     <div class="date-range">2 марта — 29 мая 2026 · 12 недель</div>
   </div>
 
-  <!-- Global Progress -->
   <div class="global-progress">
     <span class="label">Общий прогресс</span>
     <div class="bar-wrap"><div class="bar-fill" id="globalBar"></div></div>
@@ -449,30 +448,21 @@ body {
       <div class="qual-card"><div class="num">Тест 02</div><h4>Продукт спрашивают у AI</h4><p>Запросы «best X for Y», «X vs Y» ключевые для категории. AI каннибализирует SEO.</p></div>
       <div class="qual-card"><div class="num">Тест 03</div><h4>Высокий LTV клиента</h4><p>LTV $5K+ или средний чек $500+. 5–10 лидов из AI окупают ретейнер.</p></div>
     </div>
-
     <div class="tier-section">
       <div class="tier-label t1">Tier 1 — приоритет</div>
-      <div class="tier-items">
-        <strong>Необанки</strong> (Revolut, N26, Mercury, Brex) · <strong>PSP</strong> (Airwallex, Nuvei, dLocal) · <strong>Криптобиржи → Mainstream</strong> (Kraken, Crypto.com, OKX)
-      </div>
+      <div class="tier-items"><strong>Необанки</strong> (Revolut, N26, Mercury, Brex) · <strong>PSP</strong> (Airwallex, Nuvei, dLocal) · <strong>Криптобиржи → Mainstream</strong> (Kraken, Crypto.com, OKX)</div>
     </div>
     <div class="tier-section">
       <div class="tier-label t2">Tier 2 — высокий потенциал</div>
-      <div class="tier-items">
-        <strong>InsurTech</strong> (Lemonade, Hippo, Wefox) · <strong>Lending & BNPL</strong> (Klarna, Zip, Tabby) · <strong>WealthTech</strong> (Betterment, Wealthfront)
-      </div>
+      <div class="tier-items"><strong>InsurTech</strong> (Lemonade, Hippo, Wefox) · <strong>Lending & BNPL</strong> (Klarna, Zip, Tabby) · <strong>WealthTech</strong> (Betterment, Wealthfront)</div>
     </div>
     <div class="tier-section">
       <div class="tier-label t3">Tier 3 — нишевые, высокий чек</div>
-      <div class="tier-items">
-        <strong>B2B финтех-инфраструктура</strong> (Plaid, Sumsub, Onfido) · <strong>RegTech</strong> (Chainalysis, Elliptic, ComplyAdvantage)
-      </div>
+      <div class="tier-items"><strong>B2B финтех-инфраструктура</strong> (Plaid, Sumsub, Onfido) · <strong>RegTech</strong> (Chainalysis, Elliptic, ComplyAdvantage)</div>
     </div>
     <div class="tier-section">
       <div class="tier-label anti">Анти-аудитория</div>
-      <div class="anti-items">
-        <span class="x">✕</span> Малый бизнес и локальные компании · <span class="x">✕</span> Стартапы pre-seed/seed · <span class="x">✕</span> Крипто как основной сегмент · <span class="x">✕</span> Компании без опыта в SEO
-      </div>
+      <div class="anti-items"><span class="x">✕</span> Малый бизнес и локальные компании · <span class="x">✕</span> Стартапы pre-seed/seed · <span class="x">✕</span> Крипто как основной сегмент · <span class="x">✕</span> Компании без опыта в SEO</div>
     </div>
   </div>
 
@@ -502,7 +492,6 @@ body {
     </div>
   </div>
 
-  <!-- PHASES -->
   <div id="phases"></div>
 
   <!-- Kill Switch -->
@@ -627,13 +616,11 @@ const DATA = [
   ], milestone: "2–3 клиента на ретейнере, понятная unit economics, план Q3 готов" },
 ];
 
-// State
 const KEY = 'stive_plan_v1';
 let state = {};
 try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { state = {}; }
 function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
 
-// Count all tasks
 let totalTasks = 0;
 DATA.forEach(p => p.weeks.forEach(w => totalTasks += w.tasks.length));
 
@@ -646,7 +633,6 @@ function updateProgress() {
   document.getElementById('globalBar').style.width = pct + '%';
   document.getElementById('globalPct').textContent = pct + '%';
 
-  // Phase progress
   DATA.forEach((p, pi) => {
     let pt = 0, pd = 0;
     p.weeks.forEach((w, wi) => {
@@ -655,7 +641,6 @@ function updateProgress() {
         pt++; wt++;
         if (state[getTaskId(pi, wi, ti)]) { pd++; wd++; }
       });
-      const wp = wt > 0 ? Math.round(wd / wt * 100) : 0;
       const wEl = document.getElementById(`wp-${pi}-${wi}`);
       if (wEl) wEl.textContent = `${wd}/${wt}`;
     });
