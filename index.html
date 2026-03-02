@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STIVE.AI — План запуска Q2 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #08080c;
+  --surface: #111118;
+  --surface-2: #18181f;
+  --surface-3: #1f1f28;
+  --border: #2a2a38;
+  --border-light: #33334a;
+  --text: #e4e4ef;
+  --text-dim: #7a7a95;
+  --text-muted: #55556a;
+  --accent: #00d898;
+  --accent-dim: rgba(0,216,152,0.1);
+  --accent-glow: rgba(0,216,152,0.2);
+  --phase1: #00d898;
+  --phase2: #5b8def;
+  --phase3: #c084fc;
+  --red: #ff6b6b;
+  --orange: #ffa94d;
+  --yellow: #ffd43b;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+::selection { background: var(--accent); color: var(--bg); }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* Layout */
+.container { max-width: 1100px; margin: 0 auto; padding: 40px 24px 80px; }
+
+/* Header */
+.header { text-align: center; padding: 60px 0 48px; position: relative; }
+.header::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0.4;
+}
+.header .logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: var(--text);
+  position: relative;
+}
+.header .logo span { color: var(--accent); }
+.header .subtitle {
+  font-size: 16px;
+  color: var(--text-dim);
+  margin-top: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.header .date-range {
+  display: inline-block;
+  margin-top: 16px;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 6px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(0,216,152,0.15);
+}
+
+/* Progress bar */
+.global-progress {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 32px;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  position: sticky;
+  top: 12px;
+  z-index: 100;
+  backdrop-filter: blur(20px);
+}
+.global-progress .bar-wrap {
+  flex: 1;
+  height: 8px;
+  background: var(--surface-3);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.global-progress .bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--phase1), var(--phase2), var(--phase3));
+  border-radius: 4px;
+  transition: width 0.5s ease;
+  width: 0%;
+}
+.global-progress .pct {
+  font-family: 'Space Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 60px;
+  text-align: right;
+}
+.global-progress .label {
+  font-size: 13px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* Section */
+.section { margin-bottom: 48px; }
+.section-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-desc {
+  font-size: 15px;
+  color: var(--text-dim);
+  margin-bottom: 24px;
+  max-width: 700px;
+}
+
+/* About cards */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.about-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.about-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: var(--accent); }
+.about-card p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+.key-diff {
+  background: var(--accent-dim);
+  border: 1px solid rgba(0,216,152,0.15);
+  border-radius: 12px;
+  padding: 18px 24px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.key-diff strong { color: var(--accent); }
+
+/* Audience */
+.qual-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.qual-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  border-top: 3px solid var(--accent);
+}
+.qual-card .num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+.qual-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.qual-card p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+
+.tier-section { margin-bottom: 20px; }
+.tier-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 4px 12px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.tier-label.t1 { color: var(--phase1); background: rgba(0,216,152,0.1); }
+.tier-label.t2 { color: var(--phase2); background: rgba(91,141,239,0.1); }
+.tier-label.t3 { color: var(--phase3); background: rgba(192,132,252,0.1); }
+.tier-label.anti { color: var(--red); background: rgba(255,107,107,0.1); }
+.tier-items { font-size: 14px; color: var(--text-dim); line-height: 1.8; padding-left: 4px; }
+.tier-items strong { color: var(--text); font-weight: 600; }
+.anti-items { font-size: 13px; color: var(--text-muted); line-height: 1.8; }
+.anti-items .x { color: var(--red); font-weight: 700; margin-right: 6px; }
+
+/* KPI */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.kpi-card .val { font-family: 'Space Mono', monospace; font-size: 24px; font-weight: 700; color: var(--accent); }
+.kpi-card .kpi-label { font-size: 12px; color: var(--text-dim); margin-top: 4px; line-height: 1.4; }
+
+/* Team */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+.team-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.team-card .name { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.team-card .role { font-size: 12px; color: var(--text-dim); line-height: 1.4; }
+
+/* Phase */
+.phase {
+  margin-bottom: 40px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.phase-header {
+  padding: 28px 32px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+.phase-header:hover { background: var(--surface-2); }
+.phase-header h2 { font-size: 22px; font-weight: 700; }
+.phase-header .phase-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 4px 14px;
+  border-radius: 12px;
+}
+.phase-header .phase-meta { text-align: right; }
+.phase-header .phase-pct {
+  font-family: 'Space Mono', monospace;
+  font-size: 18px;
+  font-weight: 700;
+}
+.phase-header .phase-count { font-size: 12px; color: var(--text-dim); }
+.phase.p1 .phase-badge { color: var(--phase1); background: rgba(0,216,152,0.1); }
+.phase.p1 .phase-pct { color: var(--phase1); }
+.phase.p2 .phase-badge { color: var(--phase2); background: rgba(91,141,239,0.1); }
+.phase.p2 .phase-pct { color: var(--phase2); }
+.phase.p3 .phase-badge { color: var(--phase3); background: rgba(192,132,252,0.1); }
+.phase.p3 .phase-pct { color: var(--phase3); }
+.phase-body { padding: 0 32px 28px; }
+.phase-desc { font-size: 14px; color: var(--text-dim); margin-bottom: 20px; }
+
+/* Week */
+.week {
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.week-header {
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+.week-header:hover { background: var(--surface-3); }
+.week-header h3 { font-size: 15px; font-weight: 600; }
+.week-header .week-dates { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--text-dim); }
+.week-header .week-progress {
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  min-width: 50px;
+  text-align: right;
+}
+.week-body { padding: 4px 12px 12px; }
+
+/* Task */
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+.task:hover { background: var(--surface-3); }
+.task.done { opacity: 0.5; }
+.task.done .task-text { text-decoration: line-through; color: var(--text-muted); }
+.task input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border: 2px solid var(--border-light);
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 2px;
+  transition: all 0.2s;
+  position: relative;
+  background: var(--surface);
+}
+.task input[type="checkbox"]:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.task input[type="checkbox"]:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 700;
+}
+.task-text { font-size: 14px; flex: 1; line-height: 1.5; }
+.task-owner {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  padding: 3px 8px;
+  background: var(--surface);
+  border-radius: 6px;
+  margin-top: 2px;
+}
+
+/* Milestone */
+.milestone {
+  border: 1px solid;
+  border-radius: 12px;
+  padding: 16px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.phase.p1 .milestone { border-color: rgba(0,216,152,0.2); color: var(--phase1); background: rgba(0,216,152,0.05); }
+.phase.p2 .milestone { border-color: rgba(91,141,239,0.2); color: var(--phase2); background: rgba(91,141,239,0.05); }
+.phase.p3 .milestone { border-color: rgba(192,132,252,0.2); color: var(--phase3); background: rgba(192,132,252,0.05); }
+
+/* Red flags */
+.flag-card {
+  background: var(--surface);
+  border: 1px solid rgba(255,107,107,0.15);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+}
+.flag-card .flag-week { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--red); margin-bottom: 4px; }
+.flag-card p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+
+/* Rituals */
+.ritual-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.ritual-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.ritual-card .day { font-weight: 700; font-size: 14px; color: var(--accent); margin-bottom: 4px; }
+.ritual-card p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container { padding: 20px 16px 60px; }
+  .header { padding: 32px 0; }
+  .header .logo { font-size: 28px; }
+  .qual-grid, .ritual-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr 1fr; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .global-progress { flex-wrap: wrap; padding: 16px 20px; gap: 12px; }
+  .phase-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .phase-header .phase-meta { text-align: left; }
+  .phase-body { padding: 0 16px 20px; }
+  .task { gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="logo">STIVE<span>.AI</span></div>
+    <div class="subtitle">План запуска Q2 2026</div>
+    <div class="date-range">2 марта — 29 мая 2026 · 12 недель</div>
+  </div>
+
+  <!-- Global Progress -->
+  <div class="global-progress">
+    <span class="label">Общий прогресс</span>
+    <div class="bar-wrap"><div class="bar-fill" id="globalBar"></div></div>
+    <span class="pct" id="globalPct">0%</span>
+  </div>
+
+  <!-- About -->
+  <div class="section">
+    <div class="section-title">О Stive.ai</div>
+    <div class="section-desc">Marketing Agency for the LLM Era</div>
+    <div class="about-grid">
+      <div class="about-card"><h4>GEO</h4><p>Органическое присутствие в ответах ChatGPT, Perplexity, Gemini, Claude</p></div>
+      <div class="about-card"><h4>LLM Paid Traffic</h4><p>Платный трафик внутри LLM-платформ (ChatGPT Ads и др.)</p></div>
+      <div class="about-card"><h4>AI-усиленный SMM</h4><p>Продвижение через соцсети с применением LLM</p></div>
+      <div class="about-card"><h4>LLM Reputation</h4><p>Мониторинг и коррекция того, как AI описывает бренд</p></div>
+      <div class="about-card"><h4>LLM Analytics</h4><p>Дашборды и аудит: упоминания бренда в AI-ответах</p></div>
+    </div>
+    <div class="key-diff"><strong>Ключевое отличие:</strong> мы не добавляем AI как опцию к старому маркетингу — мы строим маркетинг вокруг LLM с нуля.</div>
+  </div>
+
+  <!-- Target Audience -->
+  <div class="section">
+    <div class="section-title">Кто наша целевая аудитория?</div>
+    <div class="section-desc">3 теста квалификации. Если лид не проходит хотя бы один — не наш клиент.</div>
+    <div class="qual-grid">
+      <div class="qual-card"><div class="num">Тест 01</div><h4>Уже тратит на SEO/контент</h4><p>Бюджет $20K+/мес на органику. Понимает ценность долгосрочных каналов.</p></div>
+      <div class="qual-card"><div class="num">Тест 02</div><h4>Продукт спрашивают у AI</h4><p>Запросы «best X for Y», «X vs Y» ключевые для категории. AI каннибализирует SEO.</p></div>
+      <div class="qual-card"><div class="num">Тест 03</div><h4>Высокий LTV клиента</h4><p>LTV $5K+ или средний чек $500+. 5–10 лидов из AI окупают ретейнер.</p></div>
+    </div>
+
+    <div class="tier-section">
+      <div class="tier-label t1">Tier 1 — приоритет</div>
+      <div class="tier-items">
+        <strong>Необанки</strong> (Revolut, N26, Mercury, Brex) · <strong>PSP</strong> (Airwallex, Nuvei, dLocal) · <strong>Криптобиржи → Mainstream</strong> (Kraken, Crypto.com, OKX)
+      </div>
+    </div>
+    <div class="tier-section">
+      <div class="tier-label t2">Tier 2 — высокий потенциал</div>
+      <div class="tier-items">
+        <strong>InsurTech</strong> (Lemonade, Hippo, Wefox) · <strong>Lending & BNPL</strong> (Klarna, Zip, Tabby) · <strong>WealthTech</strong> (Betterment, Wealthfront)
+      </div>
+    </div>
+    <div class="tier-section">
+      <div class="tier-label t3">Tier 3 — нишевые, высокий чек</div>
+      <div class="tier-items">
+        <strong>B2B финтех-инфраструктура</strong> (Plaid, Sumsub, Onfido) · <strong>RegTech</strong> (Chainalysis, Elliptic, ComplyAdvantage)
+      </div>
+    </div>
+    <div class="tier-section">
+      <div class="tier-label anti">Анти-аудитория</div>
+      <div class="anti-items">
+        <span class="x">✕</span> Малый бизнес и локальные компании · <span class="x">✕</span> Стартапы pre-seed/seed · <span class="x">✕</span> Крипто как основной сегмент · <span class="x">✕</span> Компании без опыта в SEO
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="section">
+    <div class="section-title">Целевые KPI</div>
+    <div class="kpi-grid">
+      <div class="kpi-card"><div class="val">2–3</div><div class="kpi-label">Клиента на ретейнере</div></div>
+      <div class="kpi-card"><div class="val">15–20</div><div class="kpi-label">Квалифицированных лидов</div></div>
+      <div class="kpi-card"><div class="val">8–12</div><div class="kpi-label">Статей в блоге</div></div>
+      <div class="kpi-card"><div class="val">2</div><div class="kpi-label">Вебинара проведено</div></div>
+      <div class="kpi-card"><div class="val">10+</div><div class="kpi-label">Каталогов</div></div>
+      <div class="kpi-card"><div class="val">5+</div><div class="kpi-label">Отзывов</div></div>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <div class="section">
+    <div class="section-title">Команда</div>
+    <div class="team-grid">
+      <div class="team-card"><div class="name">Влад</div><div class="role">CEO · Лидген, стратегия, продажи</div></div>
+      <div class="team-card"><div class="name">Новый BD</div><div class="role">Лидген, LinkedIn outreach, email</div></div>
+      <div class="team-card"><div class="name">Настя Ш.</div><div class="role">Сайт, контент блога, лидген</div></div>
+      <div class="team-card"><div class="name">Макс К.</div><div class="role">Ивенты, выступления, контент</div></div>
+      <div class="team-card"><div class="name">Настя М.</div><div class="role">Каталоги, отзывы, площадки</div></div>
+      <div class="team-card"><div class="name">Сергей Н.</div><div class="role">Финансы, бюджет, отчётность</div></div>
+    </div>
+  </div>
+
+  <!-- PHASES -->
+  <div id="phases"></div>
+
+  <!-- Kill Switch -->
+  <div class="section">
+    <div class="section-title" style="color: var(--red);">🚩 Красные флаги</div>
+    <div class="flag-card"><div class="flag-week">Неделя 4 · конец марта</div><p>Если сайт не запущен или outreach не генерирует ни одного лида — пересмотр подхода.</p></div>
+    <div class="flag-card"><div class="flag-week">Неделя 8 · конец апреля</div><p>0 платящих клиентов и менее 5 лидов в pipeline — критическое ревью: продолжаем / меняем / сворачиваем.</p></div>
+    <div class="flag-card"><div class="flag-week">Неделя 12 · конец мая</div><p>Менее 2 клиентов, revenue ниже $10k/мес — включается kill switch: сворачивание в сервис ICODA.</p></div>
+  </div>
+
+  <!-- Rituals -->
+  <div class="section">
+    <div class="section-title">Еженедельные ритуалы</div>
+    <div class="ritual-grid">
+      <div class="ritual-card"><div class="day">Понедельник</div><p>Планёрка команды (30 мин) — приоритеты, блокеры, результаты</p></div>
+      <div class="ritual-card"><div class="day">Пятница</div><p>Статус в Telegram: что сделано, что не успели, почему</p></div>
+      <div class="ritual-card"><div class="day">Конец месяца</div><p>Ревью с Сергеем — финансы, pipeline, корректировка</p></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = [
+  { phase: 1, cls: "p1", title: "Фаза 1: Фундамент", desc: "Запуск сайта, настройка лидген-машины, первый контент.", weeks: [
+    { num: 1, dates: "2–6 мар", title: "Запуск процессов", tasks: [
+      { t: "Финализация главной страницы stive.ai (дедлайн 12 марта)", o: "Настя Ш." },
+      { t: "Подготовка к онбордингу нового BD: скрипты, ICP, шаблоны писем", o: "Влад" },
+      { t: "Настройка LinkedIn Helper для аккаунтов Vlad + BD", o: "Влад" },
+      { t: "Создание LinkedIn компании stive.ai, оформление профиля", o: "Влад" },
+      { t: "Сбор списка каталогов с icoda.io (Clutch, G2, GoodFirms и др.)", o: "Настя М." },
+      { t: "План контента на март (3–4 статьи блога)", o: "Настя Ш. + Макс К." },
+      { t: "Финансовая модель stive.ai: бюджет на Q2", o: "Сергей Н." },
+    ]},
+    { num: 2, dates: "9–13 мар", title: "Онбординг BD + подготовка outreach", tasks: [
+      { t: "Онбординг нового BD: продукт, ICP, скрипты, инструменты", o: "Влад + BD" },
+      { t: "Главная страница stive.ai — финальный деплой (12 марта)", o: "Настя Ш." },
+      { t: "Начало регистрации на Clutch + DesignRush + GoodFirms", o: "Настя М." },
+      { t: "Начало переговоров о выступлениях на ивентах / подкастах", o: "Макс К." },
+      { t: "Написание первой статьи блога (черновик)", o: "Настя Ш. + Макс К." },
+      { t: "Подготовка англоязычного вебинара: тема, лендинг, промо", o: "Настя Ш." },
+    ]},
+    { num: 3, dates: "16–20 мар", title: "Запуск outreach + контент", tasks: [
+      { t: "Раздел кейсов на сайте (2–3 анонимизированных кейса из ICODA)", o: "Настя Ш." },
+      { t: "Публикация первой статьи в блог stive.ai", o: "Настя Ш." },
+      { t: "Запуск LinkedIn outreach: тёплые контакты + холодные цепочки", o: "Влад + BD" },
+      { t: "Первый LinkedIn-пост от имени Vlad (thought leadership)", o: "Влад" },
+      { t: "Email outreach: запуск первых цепочек", o: "BD" },
+      { t: "Продолжение LinkedIn outreach + 2–3 поста в неделю", o: "Влад + BD" },
+      { t: "Промо вебинара: рассылки, LinkedIn, личные приглашения", o: "Влад + Настя Ш." },
+      { t: "Продолжение регистрации на площадках: TopDevelopers, Agency Vista", o: "Настя М." },
+      { t: "Переговоры с 2–3 ивентами / подкастами", o: "Макс К." },
+    ]},
+    { num: 4, dates: "23–27 мар", title: "Вебинар + аудит-тулза", tasks: [
+      { t: "Проведение англоязычного вебинара (LLM Visibility)", o: "Влад" },
+      { t: "Раздел блога на сайте — запуск, 2 статьи опубликованы", o: "Настя Ш." },
+      { t: "Интеграция бесплатной аудит-тулзы на сайт (MVP)", o: "Настя Ш." },
+      { t: "Обработка лидов с вебинара: follow-up в течение 24 часов", o: "Влад + BD" },
+      { t: "Начало сбора отзывов на Clutch / G2 (от клиентов ICODA)", o: "Настя М." },
+      { t: "Раздел ивентов на сайте (предстоящие + прошедшие)", o: "Настя Ш." },
+      { t: "Финансовый отчёт за март: факт vs план", o: "Сергей Н." },
+    ]},
+  ], milestone: "Сайт запущен, outreach работает, вебинар проведён, первые лиды в pipeline" },
+  { phase: 2, cls: "p2", title: "Фаза 2: Разгон", desc: "Масштабирование outreach, первые продажи, накопление контента.", weeks: [
+    { num: 5, dates: "30 мар — 3 апр", title: "Масштабирование outreach", tasks: [
+      { t: "Анализ результатов outreach за март: конверсии, reply rate, корректировка", o: "Влад + BD" },
+      { t: "Увеличение объёма LinkedIn outreach: 2x от мартовского", o: "BD" },
+      { t: "Публикация 3–4 статьи блога", o: "Настя Ш. + Макс К." },
+      { t: "Первое выступление на ивенте / подкасте", o: "Макс К. + Влад" },
+      { t: "Email outreach: A/B тестирование цепочек", o: "BD" },
+      { t: "Продолжение размещения на каталогах + сбор отзывов", o: "Настя М." },
+    ]},
+    { num: 6, dates: "7–11 апр", title: "Первые продажи", tasks: [
+      { t: "Активные продажи: от аудитов к ретейнерам", o: "Влад" },
+      { t: "Публикация первого полноценного кейса stive.ai (не анонимного)", o: "Настя Ш." },
+      { t: "LinkedIn posting: 3–4 поста/неделя от Vlad + BD", o: "Влад + BD" },
+      { t: "Подготовка к вебинару #3 (апрель)", o: "Влад" },
+      { t: "Отзывы: цель 5+ на Clutch/G2 к концу недели", o: "Настя М." },
+    ]},
+    { num: 7, dates: "14–18 апр", title: "Контент-машина", tasks: [
+      { t: "Блог: публикация 5–6 статьи, ритм 2/неделя", o: "Настя Ш. + Макс К." },
+      { t: "Подготовка исследования / белой книги по LLM Visibility", o: "Влад + Настя Ш." },
+      { t: "Продолжение outreach: оптимизация лучших цепочек", o: "BD" },
+      { t: "Переговоры с партнёрами о реферальных программах", o: "Влад" },
+      { t: "Второе выступление на ивенте / подкасте", o: "Макс К." },
+    ]},
+    { num: 8, dates: "21–25 апр", title: "Вебинар #3 + ревью", tasks: [
+      { t: "Проведение вебинара #3 (апрель)", o: "Влад" },
+      { t: "Публикация исследования / white paper", o: "Влад" },
+      { t: "Ревью фазы 2: pipeline, конверсии, бюджет, корректировка", o: "Влад + Сергей Н." },
+      { t: "Обновление кейсов на сайте (новые результаты)", o: "Настя Ш." },
+      { t: "Дополнительные каталоги: TheManifest, UpCity, Sortlist", o: "Настя М." },
+      { t: "Финансовый отчёт за апрель", o: "Сергей Н." },
+    ]},
+  ], milestone: "Минимум 1 платящий клиент, 10+ лидов в pipeline, 5+ отзывов на площадках" },
+  { phase: 3, cls: "p3", title: "Фаза 3: Масштаб", desc: "Доведение до 2–3 клиентов, усиление thought leadership.", weeks: [
+    { num: 9, dates: "28 апр — 2 май", title: "Масштабирование продаж", tasks: [
+      { t: "Усиление продаж: конверсия pipeline → ретейнеры", o: "Влад + BD" },
+      { t: "Запуск партнёрской реферальной программы", o: "Влад" },
+      { t: "Контент: 2 статьи/неделя, регулярный ритм", o: "Настя Ш. + Макс К." },
+      { t: "Оптимизация аудит-тулзы по фидбеку", o: "Настя Ш." },
+    ]},
+    { num: 10, dates: "5–9 май", title: "Thought leadership", tasks: [
+      { t: "Публикация данных/исследования на основе клиентских данных", o: "Влад" },
+      { t: "Третье выступление на ивенте", o: "Макс К." },
+      { t: "Усиление email outreach: новые сегменты", o: "BD" },
+      { t: "Обновление профилей на каталогах: новые кейсы, отзывы", o: "Настя М." },
+    ]},
+    { num: 11, dates: "12–16 май", title: "Оптимизация процессов", tasks: [
+      { t: "Систематизация продаж: CRM, SOP по обработке лидов", o: "Влад + BD" },
+      { t: "Подготовка вебинара #4 (май)", o: "Влад" },
+      { t: "Контент: 2 статьи/неделя + guest posts", o: "Настя Ш. + Макс К." },
+      { t: "Дополнительные отзывы: цель 10+ суммарно", o: "Настя М." },
+    ]},
+    { num: 12, dates: "19–29 май", title: "Итоги + план Q3", tasks: [
+      { t: "Проведение вебинара #4", o: "Влад" },
+      { t: "Итоговое ревью: KPI, конверсии, unit economics, kill switch", o: "Влад + Сергей Н." },
+      { t: "Планирование Q3: корректировка стратегии", o: "Влад" },
+      { t: "Обновление сайта: кейсы, отзывы, блог-архив", o: "Настя Ш." },
+      { t: "Финансовый отчёт Q2: факт vs план, прогноз Q3", o: "Сергей Н." },
+      { t: "Анализ эффективности каталогов и отзывов", o: "Настя М." },
+    ]},
+  ], milestone: "2–3 клиента на ретейнере, понятная unit economics, план Q3 готов" },
+];
+
+// State
+const KEY = 'stive_plan_v1';
+let state = {};
+try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { state = {}; }
+function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
+
+// Count all tasks
+let totalTasks = 0;
+DATA.forEach(p => p.weeks.forEach(w => totalTasks += w.tasks.length));
+
+function getTaskId(pi, wi, ti) { return `${pi}-${wi}-${ti}`; }
+
+function updateProgress() {
+  let done = 0;
+  Object.values(state).forEach(v => { if (v) done++; });
+  const pct = totalTasks > 0 ? Math.round(done / totalTasks * 100) : 0;
+  document.getElementById('globalBar').style.width = pct + '%';
+  document.getElementById('globalPct').textContent = pct + '%';
+
+  // Phase progress
+  DATA.forEach((p, pi) => {
+    let pt = 0, pd = 0;
+    p.weeks.forEach((w, wi) => {
+      let wt = 0, wd = 0;
+      w.tasks.forEach((_, ti) => {
+        pt++; wt++;
+        if (state[getTaskId(pi, wi, ti)]) { pd++; wd++; }
+      });
+      const wp = wt > 0 ? Math.round(wd / wt * 100) : 0;
+      const wEl = document.getElementById(`wp-${pi}-${wi}`);
+      if (wEl) wEl.textContent = `${wd}/${wt}`;
+    });
+    const pp = pt > 0 ? Math.round(pd / pt * 100) : 0;
+    const ppEl = document.getElementById(`pp-${pi}`);
+    if (ppEl) ppEl.textContent = pp + '%';
+    const pcEl = document.getElementById(`pc-${pi}`);
+    if (pcEl) pcEl.textContent = `${pd} из ${pt} задач`;
+  });
+}
+
+function render() {
+  const container = document.getElementById('phases');
+  let html = '';
+
+  DATA.forEach((phase, pi) => {
+    html += `<div class="phase ${phase.cls}">
+      <div class="phase-header" onclick="togglePhase(${pi})">
+        <div>
+          <span class="phase-badge">${phase.title.split(':')[0]}</span>
+          <h2>${phase.title}</h2>
+        </div>
+        <div class="phase-meta">
+          <div class="phase-pct" id="pp-${pi}">0%</div>
+          <div class="phase-count" id="pc-${pi}">0 из 0</div>
+        </div>
+      </div>
+      <div class="phase-body" id="pb-${pi}">
+        <div class="phase-desc">${phase.desc}</div>`;
+
+    phase.weeks.forEach((week, wi) => {
+      html += `<div class="week">
+        <div class="week-header" onclick="toggleWeek(${pi},${wi})">
+          <h3>Неделя ${week.num}: ${week.title}</h3>
+          <span class="week-dates">${week.dates}</span>
+          <span class="week-progress" id="wp-${pi}-${wi}">0/0</span>
+        </div>
+        <div class="week-body" id="wb-${pi}-${wi}">`;
+
+      week.tasks.forEach((task, ti) => {
+        const id = getTaskId(pi, wi, ti);
+        const checked = state[id] ? 'checked' : '';
+        const done = state[id] ? 'done' : '';
+        html += `<div class="task ${done}" id="td-${id}">
+          <input type="checkbox" ${checked} onchange="toggle('${id}', this)">
+          <span class="task-text">${task.t}</span>
+          <span class="task-owner">${task.o}</span>
+        </div>`;
+      });
+
+      html += `</div></div>`;
+    });
+
+    html += `<div class="milestone">✅ ${phase.milestone}</div>`;
+    html += `</div></div>`;
+  });
+
+  container.innerHTML = html;
+  updateProgress();
+}
+
+function toggle(id, el) {
+  state[id] = el.checked;
+  save();
+  const row = document.getElementById('td-' + id);
+  if (row) row.classList.toggle('done', el.checked);
+  updateProgress();
+}
+
+function toggleWeek(pi, wi) {
+  const el = document.getElementById(`wb-${pi}-${wi}`);
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function togglePhase(pi) {
+  const el = document.getElementById(`pb-${pi}`);
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+render();
+</script>
+
+</body>
+</html>
