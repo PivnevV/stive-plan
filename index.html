@@ -232,8 +232,13 @@ body {
   border-radius: 12px;
   padding: 16px 18px;
 }
+.team-card { cursor: pointer; transition: all 0.2s; }
+.team-card:hover { border-color: var(--accent); }
+.team-card.active { border-color: var(--accent); background: var(--accent-dim); box-shadow: 0 0 0 2px rgba(10,138,98,0.15); }
 .team-card .name { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
 .team-card .role { font-size: 12px; color: var(--text-dim); line-height: 1.4; }
+.filter-hint { font-size: 12px; color: var(--text-muted); margin-top: 8px; font-style: italic; }
+.task.filtered-out { display: none; }
 
 /* Phase */
 .phase {
@@ -429,13 +434,14 @@ body {
   <div class="section">
     <div class="section-title">Команда</div>
     <div class="team-grid">
-      <div class="team-card"><div class="name">Влад</div><div class="role">CEO · Лидген, стратегия, продажи</div></div>
-      <div class="team-card"><div class="name">Новый BD</div><div class="role">Лидген, LinkedIn outreach, email</div></div>
-      <div class="team-card"><div class="name">Настя Ш.</div><div class="role">Сайт, контент блога, лидген</div></div>
-      <div class="team-card"><div class="name">Макс К.</div><div class="role">Ивенты, выступления, контент</div></div>
-      <div class="team-card"><div class="name">Настя М.</div><div class="role">Каталоги, отзывы, площадки</div></div>
-      <div class="team-card"><div class="name">Сергей Н.</div><div class="role">Финансы, бюджет, отчётность</div></div>
+      <div class="team-card" onclick="filterByMember(this, 'Влад')" data-member="Влад"><div class="name">Влад</div><div class="role">CEO · Лидген, стратегия, продажи</div></div>
+      <div class="team-card" onclick="filterByMember(this, 'Арсен')" data-member="Арсен"><div class="name">Арсен (BD)</div><div class="role">Лидген, LinkedIn outreach, email</div></div>
+      <div class="team-card" onclick="filterByMember(this, 'Настя Ш.')" data-member="Настя Ш."><div class="name">Настя Ш.</div><div class="role">Сайт, контент блога, лидген</div></div>
+      <div class="team-card" onclick="filterByMember(this, 'Макс К.')" data-member="Макс К."><div class="name">Макс К.</div><div class="role">Ивенты, выступления, контент</div></div>
+      <div class="team-card" onclick="filterByMember(this, 'Настя М.')" data-member="Настя М."><div class="name">Настя М.</div><div class="role">Каталоги, отзывы, площадки</div></div>
+      <div class="team-card" onclick="filterByMember(this, 'Сергей Н.')" data-member="Сергей Н."><div class="name">Сергей Н.</div><div class="role">Финансы, бюджет, отчётность</div></div>
     </div>
+    <div class="filter-hint" id="filterHint">Кликни на члена команды, чтобы отфильтровать задачи. Повторный клик — сброс.</div>
   </div>
 
   
@@ -663,6 +669,33 @@ function updateProgress() {
     const pcEl = document.getElementById(`pc-${pi}`);
     if (pcEl) pcEl.textContent = `${pd} из ${pt} задач`;
   });
+}
+
+let activeFilter = null;
+
+function filterByMember(el, member) {
+  const cards = document.querySelectorAll('.team-card');
+  if (activeFilter === member) {
+    // Deactivate
+    activeFilter = null;
+    cards.forEach(c => c.classList.remove('active'));
+    document.querySelectorAll('.task').forEach(t => t.classList.remove('filtered-out'));
+    document.getElementById('filterHint').textContent = 'Кликни на члена команды, чтобы отфильтровать задачи. Повторный клик — сброс.';
+  } else {
+    // Activate
+    activeFilter = member;
+    cards.forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    document.querySelectorAll('.task').forEach(t => {
+      const owner = t.querySelector('.task-owner');
+      if (owner && owner.textContent.includes(member)) {
+        t.classList.remove('filtered-out');
+      } else {
+        t.classList.add('filtered-out');
+      }
+    });
+    document.getElementById('filterHint').textContent = 'Фильтр: ' + member + ' — кликни ещё раз для сброса';
+  }
 }
 
 function render() {
