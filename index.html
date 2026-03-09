@@ -540,6 +540,8 @@ const DATA = [
       { t: "Начало переговоров о выступлениях на ивентах / подкастах", o: "Макс К." },
       { t: "Написание первой статьи блога (черновик)", o: "Настя Ш. + Макс К." },
       { t: "Подготовка англоязычного вебинара: тема, лендинг, промо", o: "Настя Ш." },
+      { t: "Найти всех потенциальных спикеров для вебинаров и ивентов (список + контакты)", o: "Настя Ш." },
+      { t: "Начать аутрич к спикерам: приглашения, переговоры, договорённости", o: "Влад + Настя Ш. + Арсен" },
     ]},
     { num: 3, dates: "16–20 мар", title: "Запуск outreach + контент", tasks: [
       { t: "Раздел кейсов на сайте (2–3 анонимизированных кейса из ICODA)", o: "Настя Ш." },
@@ -627,6 +629,11 @@ const DATA = [
 const KEY = 'stive_plan_v1';
 let state = {};
 try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { state = {}; }
+// Pre-fill Week 1 completed tasks (if not already in storage)
+const week1defaults = {'0-0-1':true,'0-0-2':true,'0-0-3':true,'0-0-4':true,'0-0-5':true,'0-0-6':true};
+let needsSave = false;
+for (const [k,v] of Object.entries(week1defaults)) { if (!(k in state)) { state[k] = v; needsSave = true; } }
+if (needsSave) save();
 function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
 
 let totalTasks = 0;
