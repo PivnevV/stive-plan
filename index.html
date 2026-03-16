@@ -239,6 +239,23 @@ body {
 .team-card .role { font-size: 12px; color: var(--text-dim); line-height: 1.4; }
 .filter-hint { font-size: 12px; color: var(--text-muted); margin-top: 8px; font-style: italic; }
 .task.filtered-out { display: none; }
+.hide-done .task.done { display: none; }
+.hide-toggle { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+.hide-toggle input[type="checkbox"] {
+  appearance: none; -webkit-appearance: none;
+  width: 18px; height: 18px; min-width: 18px;
+  border: 2px solid var(--border-light); border-radius: 5px;
+  cursor: pointer; position: relative; background: var(--surface);
+  transition: all 0.2s;
+}
+.hide-toggle input[type="checkbox"]:checked {
+  background: var(--accent); border-color: var(--accent);
+}
+.hide-toggle input[type="checkbox"]:checked::after {
+  content: '✓'; position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%); color: #fff; font-size: 12px; font-weight: 700;
+}
+.hide-toggle label { font-size: 13px; color: var(--text-dim); cursor: pointer; }
 
 /* Phase */
 .phase {
@@ -442,6 +459,10 @@ body {
       <div class="team-card" onclick="filterByMember(this, 'Сергей Н.')" data-member="Сергей Н."><div class="name">Сергей Н.</div><div class="role">Финансы, бюджет, отчётность</div></div>
     </div>
     <div class="filter-hint" id="filterHint">Кликни на члена команды, чтобы отфильтровать задачи. Повторный клик — сброс.</div>
+    <div class="hide-toggle">
+      <input type="checkbox" id="hideDoneToggle" checked onchange="toggleHideDone(this.checked)">
+      <label for="hideDoneToggle">Скрывать выполненные задачи</label>
+    </div>
   </div>
 
   
@@ -673,6 +694,11 @@ function updateProgress() {
 
 let activeFilter = null;
 
+function toggleHideDone(checked) {
+  const el = document.getElementById('phases');
+  if (el) { if (checked) el.classList.add('hide-done'); else el.classList.remove('hide-done'); }
+}
+
 function filterByMember(el, member) {
   const cards = document.querySelectorAll('.team-card');
   if (activeFilter === member) {
@@ -767,6 +793,7 @@ function togglePhase(pi) {
 }
 
 render();
+toggleHideDone(true);
 </script>
 
 </body>
