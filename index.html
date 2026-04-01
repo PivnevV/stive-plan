@@ -240,6 +240,7 @@ body {
 .filter-hint { font-size: 12px; color: var(--text-muted); margin-top: 8px; font-style: italic; }
 .task.filtered-out { display: none; }
 .hide-done .task.done { display: none; }
+.hide-done .week.week-complete { display: none; }
 .hide-toggle { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
 .hide-toggle input[type="checkbox"] {
   appearance: none; -webkit-appearance: none;
@@ -655,15 +656,17 @@ try { state = JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { state = 
 const week1defaults = {
   // Week 1: all done except homepage (0-0-0)
   '0-0-1':true,'0-0-2':true,'0-0-3':true,'0-0-4':true,'0-0-5':true,'0-0-6':true,
-  // Week 2: all done
+  // Week 2: all 13 tasks done
   '0-1-0':true,'0-1-1':true,'0-1-2':true,'0-1-3':true,'0-1-4':true,'0-1-5':true,'0-1-6':true,
-  '0-1-7':true,'0-1-8':true,'0-1-9':true,'0-1-10':true,'0-1-11':true,'0-1-12':true,'0-1-13':true,
-  // Week 3: first 4 done
-  '0-2-0':true,'0-2-1':true,'0-2-2':true,'0-2-3':true,
+  '0-1-7':true,'0-1-8':true,'0-1-9':true,'0-1-10':true,'0-1-11':true,'0-1-12':true,
+  // Week 3: all 6 tasks done
+  '0-2-0':true,'0-2-1':true,'0-2-2':true,'0-2-3':true,'0-2-4':true,'0-2-5':true,
+  // Week 4: first 2 done (кейсы + первая статья)
+  '0-3-0':true,'0-3-1':true,
 };
-let needsSave = false;
-for (const [k,v] of Object.entries(week1defaults)) { if (!(k in state)) { state[k] = v; needsSave = true; } }
-if (needsSave) save();
+// Force-set completed tasks (overrides localStorage for known-done tasks)
+for (const [k,v] of Object.entries(week1defaults)) { state[k] = v; }
+save();
 function save() { localStorage.setItem(KEY, JSON.stringify(state)); }
 
 let totalTasks = 0;
@@ -688,6 +691,8 @@ function updateProgress() {
       });
       const wEl = document.getElementById(`wp-${pi}-${wi}`);
       if (wEl) wEl.textContent = `${wd}/${wt}`;
+      const weekEl = document.getElementById(`wk-${pi}-${wi}`);
+      if (weekEl) { if (wt > 0 && wd === wt) weekEl.classList.add('week-complete'); else weekEl.classList.remove('week-complete'); }
     });
     const pp = pt > 0 ? Math.round(pd / pt * 100) : 0;
     const ppEl = document.getElementById(`pp-${pi}`);
@@ -749,7 +754,7 @@ function render() {
         <div class="phase-desc">${phase.desc}</div>`;
 
     phase.weeks.forEach((week, wi) => {
-      html += `<div class="week">
+      html += `<div class="week" id="wk-${pi}-${wi}">
         <div class="week-header" onclick="toggleWeek(${pi},${wi})">
           <h3>Неделя ${week.num}: ${week.title}</h3>
           <span class="week-dates">${week.dates}</span>
